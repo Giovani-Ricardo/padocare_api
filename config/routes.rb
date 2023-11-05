@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :smart_lock_accesses
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -9,5 +10,6 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   resources :users, only: [:create]
+  resources :smart_lock_accesses, only: [:create, :index]
   post "/login", to: "users#login"
 end

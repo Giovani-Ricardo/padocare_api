@@ -1,24 +1,22 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+1 - Fazer download da ultima versão do ruby através do link: https://rubyinstaller.org/downloads/
+selecionar a versão Ruby+Devkit para a plataforma utilizada
 
-Things you may want to cover:
+2 - Entre na pasta do projeto e execute o comando "bundle install" para fazer download de todas as dependencias
 
-* Ruby version
+3 - Execute o comando "rails db:create" para criar o banco de dados
 
-* System dependencies
+4 - Execute o comando "rails db:migrate" para criar as tabelas no banco de dados
 
-* Configuration
+5 - Execute o comando "rails db:seed" para popular o banco de dados
 
-* Database creation
+6 - Execute o comando "rails s" para iniciar o servidor
 
-* Database initialization
+7 - Endpoints disponíveis da API:
 
-* How to run the test suite
+    # Criar usuário
+    post /user body: {"name", "email", "password", "admin"}
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+    # Fazer login
+    post /login body: {"email", "password"}
