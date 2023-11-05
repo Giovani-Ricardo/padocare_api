@@ -1,50 +1,29 @@
 class SmartLockAccessesController < ApplicationController
-  before_action :set_smart_lock_access, only: %i[ show update destroy ]
+  before_action :authozire
 
-  # GET /smart_lock_accesses
-  def index
-    @smart_lock_accesses = SmartLockAccess.all
-
-    render json: @smart_lock_accesses
+  # GET /acessos
+  # Retorna o registro de acessos para a fechadura do usuário cadastrado
+  def acessos
+    @acessos = @user.smartlock.smart_lock_accesses.order('created_at desc')
+    render json: @acessos
   end
 
-  # GET /smart_lock_accesses/1
-  def show
-    render json: @smart_lock_access
-  end
-
-  # POST /smart_lock_accesses
+  # POST /acesso/:type_id
+  # Cria um registro de acesso para o usuário que está logado
   def create
-    @smart_lock_access = SmartLockAccess.new(smart_lock_access_params)
-
-    if @smart_lock_access.save
-      render json: @smart_lock_access, status: :created, location: @smart_lock_access
+    @acesso = @user.smartlock.smart_lock_accesses.create(user_id: @user.id, type_id: params[:type_id].to_i)
+    if @acesso.valid?
+      render json: @acesso, status: :ok
     else
-      render json: @smart_lock_access.errors, status: :unprocessable_entity
+      render json: {message: 'Criação falhou'}, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /smart_lock_accesses/1
-  def update
-    if @smart_lock_access.update(smart_lock_access_params)
-      render json: @smart_lock_access
-    else
-      render json: @smart_lock_access.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /smart_lock_accesses/1
-  def destroy
-    @smart_lock_access.destroy!
-  end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_smart_lock_access
-      @smart_lock_access = SmartLockAccess.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
+    # Método necessário para permitir os paremetros enviados na requisição
+    # Por padrão o rails bloqueia todos os parametros
     def smart_lock_access_params
       params.require(:smart_lock_access).permit(:user_id, :smartlock_id, :type_id)
     end

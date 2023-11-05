@@ -1,9 +1,13 @@
 class User < ApplicationRecord
+    # Indica que essa tabela irá ter uma senha criptografada
     has_secure_password
-    has_one :smartlock, dependent: :nullify
-    # belongs_to :master_user, class_name: 'User'
-    has_many :managed_users, class_name: 'User', foreign_key: :master_user_id , dependent: :destroy
 
+    # Define os relacionamentos da tabela
+    has_one :smartlock, dependent: :nullify
+    has_many :managed_users, class_name: 'User', foreign_key: :master_user_id , dependent: :destroy
+    # belongs_to :master_user, class_name: 'User'
+
+    # Define as validações necessárias para a tabela
     validates :name, :email, :password, presence: :true
     validates :email, uniqueness: :true
 end

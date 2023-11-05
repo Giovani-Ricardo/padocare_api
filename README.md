@@ -18,5 +18,11 @@ selecionar a versão Ruby+Devkit para a plataforma utilizada
     # Criar usuário
     post /user body: {"name", "email", "password", "admin"}
 
-    # Fazer login
+    # Fazer login, irá obter o token para realizar as requisições abaixo
     post /login body: {"email", "password"}
+
+    # Regitrar acesso
+    post /acesso body: {"type_id": inteiro entre 1 e 2}, necessário enviar o token no header 'Authorization'
+
+    # Obter acessos da fechadura do usuário
+    get /acessos necessário enviar o token no header 'Authorization'

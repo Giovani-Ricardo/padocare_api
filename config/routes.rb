@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   resources :users, only: [:create]
-  resources :smart_lock_accesses, only: [:create, :index]
   post "/login", to: "users#login"
+  get "/acessos", to: "smart_lock_accesses#acessos"
+  post "/acesso", to: "smart_lock_accesses#create"
 end

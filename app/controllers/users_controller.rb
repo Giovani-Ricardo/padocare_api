@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 	
+	# Cria um novo usuário
 	def create
 		@user = User.create(user_params)
 		if @user.valid?
@@ -9,6 +10,7 @@ class UsersController < ApplicationController
 		end
 	end
 
+	# Realiza o login do usuário, permitindo acesso ás rotas internas
 	def login
 		@user = User.find_by(email: user_params[:email])
 
@@ -21,10 +23,13 @@ class UsersController < ApplicationController
   
 	private
 
+	# Método necessário para permitir os paremetros enviados na requisição
+	# Por padrão o rails bloqueia todos os parametros
 	def user_params
 		params.permit(:name, :email, :password, :admin)
 	end
 
+	# Retorna token codificado para o usuário atual
 	def get_token
 		token = encode_token({user_id: @user.id})
 	end
