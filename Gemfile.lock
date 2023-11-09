@@ -126,6 +126,9 @@ GEM
       racc (~> 1.4)
     nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
+    passenger (6.0.18)
+      rack
+      rake (>= 0.8.1)
     psych (5.1.1.1)
       stringio
     puma (6.4.0)
@@ -198,6 +201,7 @@ DEPENDENCIES
   bootsnap
   debug
   jwt
+  passenger
   puma (>= 5.0)
   rails (~> 7.1.1)
   sqlite3 (~> 1.4)
