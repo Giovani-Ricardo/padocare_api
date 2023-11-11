@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+	
 	# Obter token para o usuário enviado como parametro
 	def encode_token(payload)
 		JWT.encode(payload, 'secret')
